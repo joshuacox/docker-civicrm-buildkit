@@ -11,7 +11,7 @@ if [ "$1" = 'runsvdir' ]; then
   fi
 
   # This can be run over and over again - it will pull in any new dependencies.
-  cd /var/www/civicrm/civicrm-buildkit && ./bin/civi-download-tools --full
+  cd /var/www/civicrm/civicrm-buildkit && yes| ./bin/civi-download-tools --full
 
   ## Configure amp
   sudo -u www-data -H /var/www/civicrm/civicrm-buildkit/bin/amp config:set --mysql_type=dsn --mysql_dsn=mysql://root@localhost --httpd_type=apache24 --perm_type=none

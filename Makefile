@@ -23,10 +23,11 @@ rundocker:
 	$(eval VOLUME := $(shell cat VOLUME))
 	$(eval NAME := $(shell cat NAME))
 	$(eval TAG := $(shell cat TAG))
+	$(eval UID := $(shell id -u))
 	chmod 777 $(TMP)
 	@docker create --name=$(NAME) \
 	--cidfile="cid" \
-	-e "DOCKER_UID=$UID" \
+	-e "DOCKER_UID=$(UID)" \
 	-v $(TMP):/tmp \
 	-v $(VOLUME):/var/www/civicrm \
 	-p  2222:22 \

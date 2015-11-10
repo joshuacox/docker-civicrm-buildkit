@@ -76,6 +76,7 @@ RUN echo "www-data ALL=NOPASSWD: /usr/bin/sv restart apache, /usr/bin/sv reload 
 
 ## Allow www-data to run mysql cli tools
 RUN echo "[client]" > /var/www/.my.cnf ; echo "user=root" >> /var/www/.my.cnf
+RUN echo 'PATH=/var/www/civicrm/civicrm-buildkit/bin:$PATH'>>/var/www/.bashrc
 
 COPY docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
