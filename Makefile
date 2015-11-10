@@ -29,7 +29,8 @@ rundocker:
 	--cidfile="cid" \
 	-e "DOCKER_UID=$(UID)" \
 	-v $(TMP):/tmp \
-	-v $(VOLUME):/var/www/civicrm \
+	-v $(VOLUME)/civicrm:/var/www/civicrm \
+	-v $(VOLUME)/mysql:/var/lib/mysql \
 	-p  2222:22 \
 	-p  8001:8001 \
 	-v /var/run/docker.sock:/run/docker.sock \
