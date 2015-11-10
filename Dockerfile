@@ -30,7 +30,8 @@ RUN apt-get update && \
   php5-mcrypt \
   apache2 \
   nodejs-legacy \
-  ruby\
+  net-tools \
+  ruby \
   rake
 
 # Avoid key buffer size warnings and myisam-recover warnings
