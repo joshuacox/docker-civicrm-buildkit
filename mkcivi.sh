@@ -9,10 +9,13 @@ if [ $# -ne 4 ]; then
   '
   exit 1
 fi
+
+civibuild create $1 --type $2 --civi-ver 4.6 --url http://localhost:$3 --admin-pass $4
+
 echo "
+-------------------------------------------------------
 my Name is $1 and my type is $2
 the url is http://localhost:$3
 the admin password will be set to $4
+-------------------------------------------------------
 "
-
-civibuild create $1 --type $2 --civi-ver 4.6 --url http://localhost:$3 --admin-pass $4
