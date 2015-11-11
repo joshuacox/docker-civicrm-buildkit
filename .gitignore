@@ -3,3 +3,6 @@ jessie
 id_rsa.pub
 id_dsa.pub
 id_ecdsa.pub
+VOLUME
+NAME
+TAG
