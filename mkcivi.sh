@@ -15,4 +15,4 @@ the url is http://localhost:$3
 the admin password will be set to $4
 "
 
-civibuild create $1 --type $2 -clean --civi-ver 4.6 --url http://localhost:$3 --admin-pass $4
+civibuild create $1 --type $2 --clean --civi-ver 4.6 --url http://localhost:$3 --admin-pass $4
