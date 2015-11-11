@@ -21,6 +21,8 @@ build: NAME TAG VOLUME jessie id_rsa.pub builddocker
 
 run: build rundocker
 
+init: build initdocker
+
 jessie:
 	sudo bash my-jessie.sh
 
@@ -37,6 +39,23 @@ rundocker:
 	-v $(TMP):/tmp \
 	-v $(VOLUME)/civicrm:/var/www/civicrm \
 	-v $(VOLUME)/mysql:/var/lib/mysql \
+	-p  2222:22 \
+	-p  8001:8001 \
+	-v /var/run/docker.sock:/run/docker.sock \
+	-v $(shell which docker):/bin/docker \
+	-t $(TAG)
+	docker start $(TAG)
+
+initdocker:
+	$(eval TMP := $(shell mktemp -d --suffix=DOCKERTMP))
+	$(eval NAME := $(shell cat NAME))
+	$(eval TAG := $(shell cat TAG))
+	$(eval UID := $(shell id -u))
+	chmod 777 $(TMP)
+	@docker create --name=$(NAME) \
+	--cidfile="cid" \
+	-e "DOCKER_UID=$(UID)" \
+	-v $(TMP):/tmp \
 	-p  2222:22 \
 	-p  8001:8001 \
 	-v /var/run/docker.sock:/run/docker.sock \
