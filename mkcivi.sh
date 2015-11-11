@@ -11,6 +11,7 @@ if [ $# -ne 4 ]; then
 fi
 
 civibuild create $1 --type $2 --civi-ver 4.6 --url http://localhost:$3 --admin-pass $4
+sudo apache2ctl graceful
 
 echo "
 -------------------------------------------------------
