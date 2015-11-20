@@ -1,4 +1,10 @@
 .PHONY: all help build run builddocker rundocker kill rm-image rm clean enter logs
+
+user = $(shell whoami)
+ifeq ($(user),root)
+$(error  "do not run as root! run 'gpasswd -a USER docker' on the user of your choice")
+endif
+
 all: help
 
 help:
@@ -34,7 +40,7 @@ rundocker:
 	-v $(VOLUME)/civicrm:/var/www/civicrm \
 	-v $(VOLUME)/mysql:/var/lib/mysql \
 	-p  2222:22 \
-	-p  8001:8001 \
+	-p  8001-8100:8001-8100 \
 	-v /var/run/docker.sock:/run/docker.sock \
 	-v $(shell which docker):/bin/docker \
 	-t $(TAG)
@@ -51,7 +57,7 @@ initdocker:
 	-e "DOCKER_UID=$(UID)" \
 	-v $(TMP):/tmp \
 	-p  2222:22 \
-	-p  8001:8001 \
+	-p  8001-8100:8001-8100 \
 	-v /var/run/docker.sock:/run/docker.sock \
 	-v $(shell which docker):/bin/docker \
 	-t $(TAG)

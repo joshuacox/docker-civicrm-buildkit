@@ -79,5 +79,6 @@ RUN echo "[client]" > /var/www/.my.cnf ; echo "user=root" >> /var/www/.my.cnf
 RUN echo 'PATH=/var/www/civicrm/civicrm-buildkit/bin:$PATH'>>/var/www/.bashrc
 
 COPY docker-entrypoint.sh /entrypoint.sh
+COPY mkcivi.sh /usr/local/bin/mkcivi.sh
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["runsvdir"]
