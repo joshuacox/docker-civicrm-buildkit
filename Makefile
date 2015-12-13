@@ -85,10 +85,11 @@ logs:
 
 grab:
 	$(eval VOLUME := $(shell cat VOLUME))
+	$(eval USER := $(shell whoami))
 	-mkdir -p $(VOLUME)
 	sudo docker cp `cat cid`:/var/www/civicrm $(VOLUME)/
 	sudo docker cp `cat cid`:/var/lib/mysql $(VOLUME)/
-	sudo chown -R $(user). $(VOLUME)/mysql
+	sudo chown -R $(USER). $(VOLUME)/mysql
 
 NAME:
 	@while [ -z "$$NAME" ]; do \
