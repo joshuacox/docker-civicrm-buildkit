@@ -1,5 +1,5 @@
-FROM my-jessie:latest
-MAINTAINER Jamie McClelland <jamie@progressivetech.org>
+FROM local-jessie:latest
+MAINTAINER Joshua Cox <josh@webhosting.coop>
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \

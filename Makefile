@@ -17,14 +17,11 @@ help:
 	@echo ""   4. make enter     - execute an interactive bash in docker container
 	@echo ""   3. make logs      - follow the logs of docker container
 
-build: NAME TAG VOLUME jessie id_rsa.pub builddocker
+build: NAME TAG VOLUME id_rsa.pub builddocker
 
 run: build rundocker
 
 init: build initdocker
-
-jessie:
-	sudo bash my-jessie.sh
 
 rundocker:
 	$(eval TMP := $(shell mktemp -d --suffix=DOCKERTMP))
