@@ -28,6 +28,7 @@ rundocker:
 	$(eval VOLUME := $(shell cat VOLUME))
 	$(eval NAME := $(shell cat NAME))
 	$(eval TAG := $(shell cat TAG))
+	$(eval NET := $(shell cat NET))
 	$(eval UID := $(shell id -u))
 	chmod 777 $(TMP)
 	@docker create --name=$(NAME) \
@@ -37,6 +38,7 @@ rundocker:
 	-v $(VOLUME)/civicrm:/var/www/civicrm \
 	-v $(VOLUME)/mysql:/var/lib/mysql \
 	-p  2222:22 \
+	$(NET) \
 	-p  8001-8100:8001-8100 \
 	-v /var/run/docker.sock:/run/docker.sock \
 	-v $(shell which docker):/bin/docker \
