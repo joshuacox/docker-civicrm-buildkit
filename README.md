@@ -5,6 +5,68 @@ Builds a completely self-contained container that runs [CiviCRM Buildkit](https:
 
 The civicrm-buildkit directory is available on the host and in the container.
 
+
+## Makefile recipe
+
+I prefer to do this with a Makefile, so it is repeatable, and I cache information not to be committed in files that are gitignored
+
+To start all you need to do is create a directory for persistent data
+
+```
+mkdir /exports/civicrm
+```
+
+```
+git clone https://github.com/joshuacox/docker-civicrm-buildkit.git https://github.com/joshuacox/local-debian.git
+cd docker-civicrm-buildkit
+```
+
+then if you have a docker overlay network put it in NET (see NET.example)
+
+Now we need the local-jessie docker image built locally, building locally means we can trust the thing much more than stuff downloaded by docker hub
+
+To do this I have a script here which I split from the manual instrustions given by [jmclelland](https://github.com/jmcclelland)
+
+[joshuacox.github.io/local-debian](http://joshuacox.github.io/local-debian)
+
+clone that directory and `make jessie` and you should have our base i.e.
+
+```
+cd ~/git
+git https://github.com/joshuacox/local-debian.git
+cd local-debian
+make jessie
+```
+
+Now we can clone this repo and get to work building civiCRM
+
+```
+cd ~/git
+git clone https://github.com/joshuacox/docker-civicrm-buildkit.git https://github.com/joshuacox/local-debian.git
+cd docker-civicrm-buildkit
+```
+
+
+next run the `init` recipe, you will be prompted for the path to the directory you made above
+
+```
+make init
+```
+
+then use the `grab` recipe to yank the persistent folders out of the initialization container and put them in your VOLUME that you chose earlier
+
+```
+make grab
+```
+
+ Finally useFinally useFinally use `run` recipe after that
+
+```
+make run
+```
+
+You now have a persistent CiviCRM
+
 ## Manual Steps to create ##
 Note: this is not a normal Docker file that pulls an image from the Docker network. It's generally not a good idea to pull code blindly from the Internet.
 
@@ -60,39 +122,6 @@ docker start civicrm-buildkit
 ```
 
 You have full access to the civicrm-buildkit directory from the host so you can git pull and push as needed.
-
-## Makefile recipe
-
-I prefer to do this with a Makefile, so it is repeatable, and I cache information not to be committed in files that are gitignored
-
-To start all you need to do is create a directory for persistent data
-
-```
-mkdir /exports/civicrm
-```
-
-then if you have a docker overlay network put it in NET (see NET.example)
-
-next run the `init` recipe, you will be prompted for the path to the directory you just made
-
-```
-make init
-```
-
-then use the `grab` recipe to yank the persistent folders out of the initialization container and put them in your VOLUME that you chose earlier
-
-```
-make grab
-```
-
- Finally useFinally useFinally use `run` recipe after that
-
-```
-make run
-```
-
-You now have a persistent CiviCRM
-
 
 ## The workflow ##
 
