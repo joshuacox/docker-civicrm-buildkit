@@ -83,6 +83,15 @@ enter:
 logs:
 	docker logs -f `cat cid`
 
+# sudo on the cp as I am getting errors on btrfs storage driven docker systems
+
+grab:
+	-mkdir -p datadir
+	sudo docker cp `cat cid`:/var/www/civicrm datadir/
+	sudo docker cp `cat cid`:/var/lib/mysql datadir/
+	sudo chown -R $(user). datadir/mysql
+	echo `pwd`/datadir > VOLUME
+
 NAME:
 	@while [ -z "$$NAME" ]; do \
 		read -r -p "Enter the name you wish to associate with this container [NAME]: " NAME; echo "$$NAME">>NAME; cat NAME; \
