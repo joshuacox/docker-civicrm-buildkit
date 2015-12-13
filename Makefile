@@ -14,7 +14,7 @@ help:
 
 build: NAME TAG VOLUME id_rsa.pub builddocker
 
-run: build rundocker
+run: rm build rundocker
 
 init: build initdocker
 
