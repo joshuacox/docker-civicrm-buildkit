@@ -12,11 +12,15 @@ help:
 	@echo ""   4. make enter     - execute an interactive bash in docker container
 	@echo ""   3. make logs      - follow the logs of docker container
 
-build: NAME TAG VOLUME id_rsa.pub builddocker
+build: NAME TAG VOLUME localphantom id_rsa.pub builddocker
 
 run: rm build rundocker
 
 init: build initdocker
+
+localphantom:
+	curl https://raw.githubusercontent.com/joshuacox/phantomjs-armbuilder/master/phantomjsarm.sh| bash
+	date -I>localphantom
 
 rundocker:
 	$(eval TMP := $(shell mktemp -d --suffix=DOCKERTMP))
