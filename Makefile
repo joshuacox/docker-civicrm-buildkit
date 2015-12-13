@@ -51,6 +51,7 @@ initdocker:
 	-e "DOCKER_UID=$(UID)" \
 	-v $(TMP):/tmp \
 	-p  2222:22 \
+	$(NET) \
 	-p  8001-8100:8001-8100 \
 	-v /var/run/docker.sock:/run/docker.sock \
 	-v $(shell which docker):/bin/docker \
