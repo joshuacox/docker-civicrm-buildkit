@@ -84,11 +84,11 @@ logs:
 # sudo on the cp as I am getting errors on btrfs storage driven docker systems
 
 grab:
-	-mkdir -p datadir
-	sudo docker cp `cat cid`:/var/www/civicrm datadir/
-	sudo docker cp `cat cid`:/var/lib/mysql datadir/
-	sudo chown -R $(user). datadir/mysql
-	echo `pwd`/datadir > VOLUME
+	$(eval VOLUME := $(shell cat VOLUME))
+	-mkdir -p $(VOLUME)
+	sudo docker cp `cat cid`:/var/www/civicrm $(VOLUME)/
+	sudo docker cp `cat cid`:/var/lib/mysql $(VOLUME)/
+	sudo chown -R $(user). $(VOLUME)/mysql
 
 NAME:
 	@while [ -z "$$NAME" ]; do \
