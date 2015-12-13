@@ -19,7 +19,7 @@ run: rm build rundocker
 init: build initdocker
 
 localphantom:
-	curl https://raw.githubusercontent.com/joshuacox/phantomjs-armbuilder/master/phantomjsarm.sh| bash
+	curl https://raw.githubusercontent.com/joshuacox/phantomjs-srcbuilder/master/phantomjsbuild.sh| bash
 	date -I>localphantom
 
 rundocker:
